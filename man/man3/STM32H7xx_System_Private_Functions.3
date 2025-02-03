@@ -1,0 +1,131 @@
+.TH "STM32H7xx_System_Private_Functions" 3 "StmDoxin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+STM32H7xx_System_Private_Functions \- STM32H7xx_System_Private_Functions
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBSystemInit\fP (void)"
+.br
+.RI "Setup the microcontroller system Initialize the FPU setting and vector table location configuration\&. "
+.ti -1c
+.RI "void \fBSystemCoreClockUpdate\fP (void)"
+.br
+.RI "Update SystemCoreClock variable according to Clock Register Values\&. The SystemCoreClock variable contains the core clock , it can be used by the user application to setup the SysTick timer or configure other parameters\&. "
+.ti -1c
+.RI "void \fBExitRun0Mode\fP (void)"
+.br
+.RI "Exit Run* mode and Configure the system Power Supply\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Function Documentation"
+.PP 
+.SS "void ExitRun0Mode (void )"
+
+.PP
+\fBNote\fP
+.RS 4
+This function exits the Run* mode and configures the system power supply according to the definition to be used at compilation preprocessing level\&. The application shall set one of the following configuration option:
+.IP "\(bu" 2
+PWR_LDO_SUPPLY
+.IP "\(bu" 2
+PWR_DIRECT_SMPS_SUPPLY
+.IP "\(bu" 2
+PWR_EXTERNAL_SOURCE_SUPPLY
+.IP "\(bu" 2
+PWR_SMPS_1V8_SUPPLIES_LDO
+.IP "\(bu" 2
+PWR_SMPS_2V5_SUPPLIES_LDO
+.IP "\(bu" 2
+PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO
+.IP "\(bu" 2
+PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO
+.IP "\(bu" 2
+PWR_SMPS_1V8_SUPPLIES_EXT
+.IP "\(bu" 2
+PWR_SMPS_2V5_SUPPLIES_EXT
+.PP
+
+.PP
+The function modifies the PWR->CR3 register to enable or disable specific power supply modes and waits until the voltage level flag is set, indicating that the power supply configuration is stable\&.
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+
+.SS "void SystemCoreClockUpdate (void )"
+
+.PP
+\fBNote\fP
+.RS 4
+Each time the core clock changes, this function must be called to update SystemCoreClock variable value\&. Otherwise, any configuration based on this variable will be incorrect\&.
+
+.PP
+- The system frequency computed by this function is not the real frequency in the chip\&. It is calculated based on the predefined constant and the selected clock source:
+.RE
+.PP
+.IP "\(bu" 2
+If SYSCLK source is CSI, SystemCoreClock will contain the \fBCSI_VALUE(*)\fP
+.IP "\(bu" 2
+If SYSCLK source is HSI, SystemCoreClock will contain the \fBHSI_VALUE(**)\fP
+.IP "\(bu" 2
+If SYSCLK source is HSE, SystemCoreClock will contain the \fBHSE_VALUE(***)\fP
+.IP "\(bu" 2
+If SYSCLK source is PLL, SystemCoreClock will contain the \fBCSI_VALUE(*)\fP, \fBHSI_VALUE(**)\fP or \fBHSE_VALUE(***)\fP multiplied/divided by the PLL factors\&.
+.PP
+
+.PP
+(*) CSI_VALUE is a constant defined in stm32h7xx_hal\&.h file (default value 4 MHz) but the real value may vary depending on the variations in voltage and temperature\&. (**) HSI_VALUE is a constant defined in stm32h7xx_hal\&.h file (default value 64 MHz) but the real value may vary depending on the variations in voltage and temperature\&.
+
+.PP
+(***)HSE_VALUE is a constant defined in stm32h7xx_hal\&.h file (default value 25 MHz), user has to ensure that HSE_VALUE is same as the real frequency of the crystal used\&. Otherwise, this function may have wrong result\&.
+
+.PP
+.IP "\(bu" 2
+The result of this function could be not correct when using fractional value for HSE crystal\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+
+.PP
+
+.SS "void SystemInit (void )"
+
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for StmDoxin from the source code\&.
